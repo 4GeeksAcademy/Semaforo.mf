@@ -1,28 +1,49 @@
-import React from "react";
+import React, { useState } from "react";
+import "../../styles/index.css";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
+function Home() {
+	const [color, setColor] = useState("red");
+	const [showPurple, setShowPurple] = useState(false);
 
-//create your first component
-const Home = () => {
+	let colors;
+	if (showPurple === true) {
+		colors = ["red", "yellow", "green", "purple"];
+	} else {
+		colors = ["red", "yellow", "green"];
+	}
+
+	const changeColor = () => {
+		if (color === "red") {
+			setColor("yellow");
+		} else if (color === "yellow") {
+			setColor("green");
+		} else {
+			setColor("red");
+		}
+	};
+
+	const togglePurple = () => {
+		if (showPurple === true) {
+			setShowPurple(false);
+			if (color === "purple") {
+				setColor("red");
+			}
+		} else {
+			setShowPurple(true);
+		}
+	};
+
 	return (
-		<div className="text-center">
-            
-
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
-		</div>
+		<div className="container">
+			<div className="pole"></div>
+			<div className="traffic-light">
+				<div className={color === "red" ? "light red glow" : "light red"} onClick={() => setColor("red")}></div>
+				<div className={color === "yellow" ? "light yellow glow" : "light yellow"} onClick={() => setColor("yellow")}></div>
+				<div className={color === "green" ? "light green glow" : "light green"} onClick={() => setColor("green")}></div>
+				{showPurple ? (<div className={color === "purple" ? "light purple glow" : "light purple"} onClick={() => setColor("purple")}></div>): null}</div>
+			<button onClick={changeColor} className="btn">Cambiar color</button>
+			<button onClick={togglePurple} className="btn"> {showPurple ? "Quitar" : "Añadir"}</button></div>
 	);
-};
+}; 
 
-export default Home;
+	export default Home;
